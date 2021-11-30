@@ -13,9 +13,8 @@ public class Biglietteria {
 		int km = scan.nextInt();
 		System.out.print("\nInserire età passeggero: ");
 		int eta = scan.nextInt();
-		
+
 		Biglietto a = new Biglietto(km, eta, flessibile);
-		
 
 		do {
 			System.out.print("\nScegliere se biglietto flessibile (durata 90 giorni)");
@@ -23,12 +22,9 @@ public class Biglietteria {
 			flessibile = scan.nextBoolean();
 			a.setFlessibile(flessibile);
 		} while (flessibile != true && flessibile != false);
-		
 
-		
 		System.out.println("\nIl biglietto è stato fatto in data " + a.getDataFormattata());
-		
-		
+
 		try {
 			System.out.println("\nPrezzo del biglietto è di " + a.CalcolaPrezzo() + "\u20ac" + " e scade in data "
 					+ a.calcolaDataScadenza());

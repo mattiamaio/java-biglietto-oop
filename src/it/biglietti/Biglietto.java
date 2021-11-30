@@ -27,7 +27,6 @@ public class Biglietto {
 	public Biglietto(int km, int eta, boolean flessibile) {
 		this.km = km;
 		this.eta = eta;
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		data = LocalDate.now();
 		dataFormattata = data.format(FORMATTER);
 		this.flessibile = flessibile;
@@ -57,7 +56,7 @@ public class Biglietto {
 	public void setFlessibile(boolean flessibile) {
 		this.flessibile = flessibile;
 	}
-	
+
 	public String getDataFormattata() {
 		return dataFormattata;
 	}
@@ -117,16 +116,17 @@ public class Biglietto {
 		LocalDate dataScadenza = null;
 		if (flessibile) {
 			dataScadenza = data.plusDays(DURATA_FLESSIBILE);
-		} else if(!flessibile){
+		} else if (!flessibile) {
 			dataScadenza = data.plusDays(DURATA_NORMALE);
 		}
 		return dataScadenza.format(FORMATTER);
 	}
-	
-	public boolean isValidFlessibile() throws InputMismatchException{ //inserita exception precisa perché errore dato dal compilatore 
-		if(flessibile) {
+
+	public boolean isValidFlessibile() throws InputMismatchException { // inserita exception precisa perché errore dato
+																		// dal compilatore
+		if (flessibile) {
 			return true;
-		} else if(!flessibile) {
+		} else if (!flessibile) {
 			return false;
 		} else {
 			throw new InputMismatchException("Errore: scrivere true per flessibile o false per normale");
