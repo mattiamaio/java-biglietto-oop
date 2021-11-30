@@ -2,6 +2,8 @@ package it.biglietti;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 
 // ROOM 4: Jerome Branchetti, Mattia Loiacono, Mattia Maio, Rosario Mazzocca, Gianluca Scarnicci.
 
@@ -12,18 +14,22 @@ public class Biglietto {
 	private final BigDecimal SCONTO_UNDER_18 = new BigDecimal("0.2");
 	private final int DURATA_NORMALE = 30;
 	private final int DURATA_FLESSIBILE = 90;
+	private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	// attributi
 	private int km;
 	private int eta;
 	private LocalDate data;
 	private boolean flessibile;
+	private String dataFormattata;
 
 	// costruttore
 	public Biglietto(int km, int eta, boolean flessibile) {
 		this.km = km;
 		this.eta = eta;
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		data = LocalDate.now();
+		dataFormattata = data.format(FORMATTER);
 		this.flessibile = flessibile;
 	}
 
@@ -50,6 +56,10 @@ public class Biglietto {
 
 	public void setFlessibile(boolean flessibile) {
 		this.flessibile = flessibile;
+	}
+	
+	public String getDataFormattata() {
+		return dataFormattata;
 	}
 
 	// metodi
@@ -103,14 +113,24 @@ public class Biglietto {
 
 	}
 
-	public LocalDate calcolaDataScadenza() {
-		LocalDate dataScadenza;
+	public String calcolaDataScadenza() {
+		LocalDate dataScadenza = null;
 		if (flessibile) {
 			dataScadenza = data.plusDays(DURATA_FLESSIBILE);
-		} else {
+		} else if(!flessibile){
 			dataScadenza = data.plusDays(DURATA_NORMALE);
 		}
-		return dataScadenza;
+		return dataScadenza.format(FORMATTER);
+	}
+	
+	public boolean isValidFlessibile() throws InputMismatchException{ //inserita exception precisa perché errore dato dal compilatore 
+		if(flessibile) {
+			return true;
+		} else if(!flessibile) {
+			return false;
+		} else {
+			throw new InputMismatchException("Errore: scrivere true per flessibile o false per normale");
+		}
 	}
 
 }
