@@ -96,7 +96,7 @@ public class Biglietto {
 	}
 
 	private boolean isValidKm() {
-		if (km <= 0) {
+		if (km < 0) {
 			return false;
 		} else {
 			return true;
@@ -104,7 +104,7 @@ public class Biglietto {
 	}
 
 	private boolean isValidEta() {
-		if (eta < 0 || eta > 120) {
+		if (eta <= 0 || eta > 120) {
 			return false;
 		} else {
 			return true;
